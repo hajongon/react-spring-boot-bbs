@@ -35,7 +35,7 @@ public class BoardController {
 
     // HTTP Post 방식으로 /board 주소로 접근하면 새로운 게시글을 생성
     @PostMapping("/board")
-    // @RequestBody: HTTP 요청 본문의 데이터를 읽어오는 어노테이션입니다.
+    // @RequestBody: HTTP 요청 본문의 데이터를 읽어오는 어노테이션
     // createBoard 메서드는 새로운 게시글을 생성하며, 요청 본문에 포함된 데이터(boardSaveDto)를 받는다.
     Header<BoardEntity> createBoard(@RequestBody BoardSaveDto boardSaveDto) {
         // boardService.insertBoard를 호출하여 게시글을 생성하고 응답을 생성
@@ -44,7 +44,7 @@ public class BoardController {
 
     // HTTP Patch 방식으로 /board 주소로 접근하면 게시글을 수정
     @PatchMapping("/board")
-    // @RequestBody: HTTP 요청 본문의 데이터를 읽어오는 어노테이션입니다.
+    // @RequestBody: HTTP 요청 본문의 데이터를 읽어오는 어노테이션
     // updateBoard 메서드는 게시글을 수정하며, 요청 본문에 포함된 데이터(boardSaveDto)를 받는다.
     Header<BoardEntity> updateBoard(@RequestBody BoardSaveDto boardSaveDto) {
         // boardService.updateBoard를 호출하여 게시글을 수정하고 응답을 생성
