@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<!-- 매퍼 파일(XML)의 헤더. XML 문서의 버전 및 인코딩을 정의하고, DTD(DocType Definition)를 지정 -->
+<!-- DTD는 XML 문서의 구조를 정의하며, MyBatis에서는 매퍼 파일의 구조를 정의하는 데 사용 -->
+
+<mapper namespace="com.board.study.db.BoardMapper">
+    <!-- 매퍼의 네임스페이스를 정의. 네임스페이스는 매퍼 파일에서 정의된 SQL 쿼리들의 범위 -->
+
+    <select id="getBoardList" parameterType="Map" resultType="com.board.study.db.BoardEntity">
+        <!-- SELECT 쿼리를 정의 -->
+        <!-- id 속성은 이 쿼리를 식별하는 역할 -->
+        <!-- parameterType 속성은 이 쿼리의 파라미터 타입. 이 쿼리는 Map을 파라미터로 받음 -->
+        <!-- resultType 속성은 이 쿼리의 결과 타입. 이 쿼리는 com.board.study.db.BoardEntity 클래스의 객체를 반환 -->
+
+        SELECT IDX
+        , TITLE
+        , CONTENTS
+        , CREATED_BY
+        , CREATED_AT
+        FROM TB_BOARD
+        WHERE 1=1
+        <!-- 실제 SQL 쿼리를 정의 -->
+        <!-- TB_BOARD 테이블에서 필요한 컬럼들을 SELECT -->
+        
+        <if test="sk != '' || sk != null">
+            <!-- 동적 SQL을 생성하기 위한 <if> 구문 -->
+            <!-- test 속성은 조건 -->
+            <!-- sk라는 파라미터가 빈 문자열이 아니거나(null이 아니거나) sk가 null이 아닌 경우에만 조건이 참 -->
+            <!-- 따라서 sk 파라미터가 존재하고 비어있지 않을 때 아래의 SQL 조건이 추가됨 -->
+
+            <if test="sk == 'title'">
+                AND TITLE LIKE CONCAT('%', #{sv}, '%')
+                <!-- 이 부분은 sk 파라미터가 'title'일 때 추가되는 SQL 조건 -->
+                <!-- TITLE 컬럼에서 #{sv} 파라미터의 값을 포함한 레코드를 검색 -->
+            </if>
+            <if test="sk == 'contents'">
+                AND CONTENTS LIKE CONCAT('%', #{sv}, '%')
+                <!-- 이 부분은 sk 파라미터가 'contents'일 때 추가되는 SQL 조건 -->
+                <!-- CONTENTS 컬럼에서 #{sv} 파라미터의 값을 포함한 레코드를 검색 -->
+            </if>
+            <if test="sk == 'createdBy'">
+                AND CREATED_BY LIKE CONCAT('%', #{sv}, '%')
+                <!-- 이 부분은 sk 파라미터가 'createdBy'일 때 추가되는 SQL 조건 -->
+                <!-- CREATED_BY 컬럼에서 #{sv} 파라미터의 값을 포함한 레코드를 검색 -->
+            </if>
+        </if>
+
+        ORDER BY IDX DESC
+        LIMIT #{page}, #{size}
+        <!-- SQL의 정렬 및 제한 조건 -->
+    </select>
+
+    <select id="getBoardTotalCount" parameterType="Map" resultType="Int">
+        SELECT COUNT(IDX)
+        FROM TB_BOARD
+        WHERE 1=1
+        <if test="sk != '' || sk != null">
+            <if test="sk == 'title'">
+                AND TITLE LIKE CONCAT('%', #{sv}, '%')
+            </if>
+            <if test="sk == 'contents'">
+                AND CONTENTS LIKE CONCAT('%', #{sv}, '%')
+            </if>
+            <if test="sk == 'createdBy'">
+                AND CREATED_BY LIKE CONCAT('%', #{sv}, '%')
+            </if>
+        </if>
+    </select>
+
+    <select id="getBoardOne" parameterType="Long" resultType="com.board.study.db.BoardEntity">
+        SELECT IDX
+        , TITLE
+        , CONTENTS
+        , CREATED_BY
+        , CREATED_AT
+        FROM TB_BOARD
+        WHERE IDX = #{idx}
+    </select>
+
+    <insert id="insertBoard" parameterType="com.board.study.db.BoardEntity" keyProperty="idx" useGeneratedKeys="true">
+        INSERT INTO TB_BOARD
+        (
+        TITLE
+        , CONTENTS
+        , CREATED_BY
+        , CREATED_AT
+        ) VALUES (
+        #{title}
+        , #{contents}
+        , #{createdBy}
+        , NOW()
+        )
+    </insert>
+
+    <update id="updateBoard" parameterType="com.board.study.db.BoardEntity">
+        UPDATE TB_BOARD
+        SET TITLE = #{title}
+        , CONTENTS = #{contents}
+        WHERE IDX = #{idx}
+    </update>
+
+    <delete id="deleteBoard" parameterType="Long">
+        DELETE FROM TB_BOARD
+        WHERE IDX = #{idx}
+    </delete>
+</mapper>
