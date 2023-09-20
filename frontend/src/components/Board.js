@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { deleteBoard } from '../apis/board'
+import './Board.css'
 
 const Board = ({ idx, title, contents, createdBy }) => {
     const navigate = useNavigate()
@@ -22,14 +23,14 @@ const Board = ({ idx, title, contents, createdBy }) => {
         navigate('/board')
     }
     return (
-        <div>
+        <div className="container">
             <div>
                 <h2>{title}</h2>
                 <h5>{createdBy}</h5>
                 <hr />
                 <p>{contents}</p>
             </div>
-            <div>
+            <div className="button-box">
                 <button onClick={moveToUpdate}>수정</button>
                 <button onClick={deleteCurrentBoard}>삭제</button>
                 <button onClick={moveToList}>목록</button>

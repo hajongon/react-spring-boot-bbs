@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { getBoardList } from '../apis/board'
 import { Link, useNavigate } from 'react-router-dom'
+import './BoardList.css'
 
 const BoardList = () => {
     const navigate = useNavigate()
     const [boardList, setBoardList] = useState([])
+
+    console.log(boardList)
 
     const [pageList, setPageList] = useState([])
 
@@ -86,26 +89,52 @@ const BoardList = () => {
         }
     }
 
+    // timestamp를 "YYYY-MM-DD" 형태로 변환하는 함수
+    function formatTimestamp(timestamp) {
+        const date = new Date(timestamp)
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1)
+        const day = String(date.getDate())
+        return `${year}년 ${month}월 ${day}일`
+    }
+
     useEffect(() => {
         fetchData() // fetchData 함수 호출
     }, [])
 
     return (
-        <div>
-            <ul>
-                {boardList.map((board) => (
-                    // 4) map 함수로 데이터 출력
-                    <li key={board.idx}>
-                        <Link to={`/board/${board.idx}`}>{board.title}</Link>
-                    </li>
-                ))}
-            </ul>
-            <div>
+        <div className="container">
+            <table className="board-table">
+                <thead>
+                    <tr>
+                        <th>글 번호</th>
+                        <th>글 제목</th>
+                        <th>작성일</th>
+                        <th>작성자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {boardList.map((board) => (
+                        <tr key={board.idx}>
+                            <td>{board.idx}</td>
+                            <td>
+                                <Link to={`/board/${board.idx}`}>
+                                    {board.title}
+                                </Link>
+                            </td>
+                            <td>{formatTimestamp(board.createdAt)}</td>
+                            <td>{board.createdBy}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            <div className="buttons">
                 <button onClick={onClick} value={1}>
-                    &lt;&lt;
+                    첫 페이지
                 </button>
                 <button onClick={onClick} value={prevBlock}>
-                    &lt;
+                    이전
                 </button>
                 {pageList.map((page, index) => (
                     <button key={index} onClick={onClick} value={page}>
@@ -113,25 +142,26 @@ const BoardList = () => {
                     </button>
                 ))}
                 <button onClick={onClick} value={nextBlock}>
-                    &gt;
+                    다음
                 </button>
                 <button onClick={onClick} value={lastPage}>
-                    &gt;&gt;
+                    마지막 페이지
                 </button>
             </div>
-            <br />
-            <div>
-                <select name="sk" onChange={onChange}>
-                    <option value="">-선택-</option>
-                    <option value="title">제목</option>
-                    <option value="contents">내용</option>
-                </select>
-                <input type="text" name="sv" id="" onChange={onChange} />
-                <button onClick={onSearch}>검색</button>
-            </div>
-            <br />
-            <div>
-                <button onClick={moveToWrite}>글쓰기</button>
+            <div className="underTheBoardBox">
+                <div className="searchBox">
+                    <select name="sk" onChange={onChange}>
+                        <option value="">-선택-</option>
+                        <option value="title">제목</option>
+                        <option value="contents">내용</option>
+                    </select>
+                    <input type="text" name="sv" id="" onChange={onChange} />
+                    <button onClick={onSearch}>검색</button>
+                </div>
+                <br />
+                <div className="writeButton">
+                    <button onClick={moveToWrite}>글쓰기</button>
+                </div>
             </div>
         </div>
     )

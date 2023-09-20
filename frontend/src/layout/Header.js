@@ -1,14 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './Header.css'
 
 const Header = () => {
     return (
-        <header>
-            <Link to="/"> 홈</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to="/board">게시판</Link>
+        <>
+            <header>
+                <div>
+                    <Link to="/">
+                        <span class="header-menu-text"> 홈</span>
+                    </Link>
+                </div>
+                <div className="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                <div>
+                    <Link to="/board">
+                        <span class="header-menu-text"> 게시판</span>
+                    </Link>
+                </div>
+            </header>
             <hr />
-        </header>
+        </>
     )
 }
 

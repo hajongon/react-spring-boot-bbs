@@ -1,0 +1,11 @@
+Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 12px 24px 12px 24px;
+    color: black;
+}
+
+.bar {
+    color: rgb(184, 184, 184);
+}

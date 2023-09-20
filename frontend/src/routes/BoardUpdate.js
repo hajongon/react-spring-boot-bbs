@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getBoard, updateBoard } from '../apis/board'
+import './BoardUpdate.css'
 
 const BoardUpdate = () => {
     const navigate = useNavigate()
@@ -44,39 +45,39 @@ const BoardUpdate = () => {
     }, [])
 
     return (
-        <div>
-            <div>
-                <span>제목</span>
+        <div className="update-container">
+            <div className="title-box">
+                <label htmlFor="title">제목</label>
                 <input
                     type="text"
                     name="title"
+                    id="title"
                     value={title}
                     onChange={onChange}
                 />
             </div>
-            <br />
-            <div>
-                <span>작성자</span>
+            <div className="author-box">
+                <label htmlFor="createdBy">작성자</label>
                 <input
                     type="text"
                     name="createdBy"
+                    id="createdBy"
                     value={createdBy}
                     readOnly={true}
                 />
             </div>
-            <br />
-            <div>
-                <span>내용</span>
+            <div className="content-box">
+                <label htmlFor="contents">내용</label>
                 <textarea
                     name="contents"
+                    id="contents"
                     cols="30"
                     rows="10"
                     value={contents}
                     onChange={onChange}
                 ></textarea>
             </div>
-            <br />
-            <div>
+            <div className="button-box">
                 <button onClick={patchBoard}>수정</button>
                 <button onClick={backToDetail}>취소</button>
             </div>
