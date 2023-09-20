@@ -5,7 +5,6 @@ import './BoardWrite.css'
 
 const BoardWrite = () => {
     const navigate = useNavigate()
-
     const [board, setBoard] = useState({
         title: '',
         createdBy: '',
@@ -41,7 +40,6 @@ const BoardWrite = () => {
                     type="text"
                     name="title"
                     id="title"
-                    value={title}
                     onChange={onChange}
                 />
             </div>
@@ -51,8 +49,7 @@ const BoardWrite = () => {
                     type="text"
                     name="createdBy"
                     id="createdBy"
-                    value={createdBy}
-                    readOnly={true}
+                    onChange={onChange}
                 />
             </div>
             <div className="content-box">
@@ -62,7 +59,6 @@ const BoardWrite = () => {
                     id="contents"
                     cols="30"
                     rows="10"
-                    value={contents}
                     onChange={onChange}
                 ></textarea>
             </div>

@@ -23,14 +23,14 @@ const Board = ({ idx, title, contents, createdBy }) => {
         navigate('/board')
     }
     return (
-        <div className="container">
+        <div className="board-container">
             <div>
                 <h2>{title}</h2>
                 <h5>{createdBy}</h5>
                 <hr />
                 <p>{contents}</p>
             </div>
-            <div className="button-box">
+            <div className="button-box2">
                 <button onClick={moveToUpdate}>수정</button>
                 <button onClick={deleteCurrentBoard}>삭제</button>
                 <button onClick={moveToList}>목록</button>

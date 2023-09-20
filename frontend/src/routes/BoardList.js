@@ -151,7 +151,6 @@ const BoardList = () => {
             <div className="underTheBoardBox">
                 <div className="searchBox">
                     <select name="sk" onChange={onChange}>
-                        <option value="">-선택-</option>
                         <option value="title">제목</option>
                         <option value="contents">내용</option>
                     </select>
