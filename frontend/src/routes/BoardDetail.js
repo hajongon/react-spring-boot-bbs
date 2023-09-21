@@ -14,6 +14,7 @@ const BoardDetail = () => {
                 const { data } = await getBoard(
                     `http://localhost:8080/board/${idx}`
                 ) // 1) 게시글 목록 조회 함수 호출
+                console.log(data)
                 setBoard(data) // 3) 상태 업데이트
             } catch (error) {
                 console.error('Error fetching board list:', error)

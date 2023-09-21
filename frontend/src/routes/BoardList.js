@@ -6,9 +6,6 @@ import './BoardList.css'
 const BoardList = () => {
     const navigate = useNavigate()
     const [boardList, setBoardList] = useState([])
-
-    console.log(boardList)
-
     const [pageList, setPageList] = useState([])
 
     const [curPage, setCurPage] = useState(0) // 현재 페이지 세팅
@@ -31,7 +28,6 @@ const BoardList = () => {
         if (!updatedSearch) {
             updatedSearch = { page: 1, sk: '', sv: '' } // 빈 객체로 초기화 또는 기본 값을 설정
         }
-        console.log(updatedSearch)
         const queryString = Object.entries(updatedSearch)
             .map((el) => el.join('='))
             .join('&')
@@ -46,7 +42,7 @@ const BoardList = () => {
             const { endPage, nextBlock, prevBlock, startPage, totalPageCnt } =
                 pngn
 
-            setCurPage(search.page)
+            setCurPage(updatedSearch.page)
             setPrevBlock(prevBlock)
             setNextBlock(nextBlock)
             setLastPage(totalPageCnt)
@@ -137,7 +133,14 @@ const BoardList = () => {
                     이전
                 </button>
                 {pageList.map((page, index) => (
-                    <button key={index} onClick={onClick} value={page}>
+                    <button
+                        className={
+                            +page === +curPage ? 'activePage' : 'commonPage'
+                        }
+                        key={index}
+                        onClick={onClick}
+                        value={page}
+                    >
                         {page}
                     </button>
                 ))}
@@ -151,6 +154,7 @@ const BoardList = () => {
             <div className="underTheBoardBox">
                 <div className="searchBox">
                     <select name="sk" onChange={onChange}>
+                        <option value="">선택</option>
                         <option value="title">제목</option>
                         <option value="contents">내용</option>
                     </select>

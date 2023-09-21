@@ -8,13 +8,13 @@ const Header = () => {
             <header>
                 <div>
                     <Link to="/">
-                        <span class="header-menu-text"> 홈</span>
+                        <span className="header-menu-text"> 홈</span>
                     </Link>
                 </div>
                 <div className="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div>
                     <Link to="/board">
-                        <span class="header-menu-text"> 게시판</span>
+                        <span className="header-menu-text"> 게시판</span>
                     </Link>
                 </div>
             </header>

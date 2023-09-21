@@ -23,6 +23,7 @@ export const getBoardList = async (url) => {
 export const getBoard = async (url) => {
     try {
         const res = await axios.get(url)
+        console.log(res)
         return res.data // 성공한 경우 응답 데이터를 반환
     } catch (error) {
         if (error.response) {
@@ -40,6 +41,7 @@ export const getBoard = async (url) => {
 export const postBoard = async (url, board) => {
     try {
         const res = await axios.post(url, board)
+        console.log(res)
         return res.data
     } catch (error) {
         if (error.response) {

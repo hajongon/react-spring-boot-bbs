@@ -78,6 +78,7 @@
         WHERE IDX = #{idx}
     </select>
 
+
     <insert id="insertBoard" parameterType="com.board.study.db.BoardEntity" keyProperty="idx" useGeneratedKeys="true">
         INSERT INTO TB_BOARD
         (
